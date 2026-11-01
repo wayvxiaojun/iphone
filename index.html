@@ -627,6 +627,192 @@ function showPhoto(photo) {
 
 function closePhoto() {
   document.getElementById("photo-viewer").style.display = "none";
-}</script>
+}// シャオジュンからの返信パターン
+const chatReplies = [
+  "진짜? 오늘 뭐 했는데?",
+  "아 그랬구나",
+  "나도 오늘 좀 바빴어",
+  "밥은 먹었어?",
+  "그거 재밌겠다",
+  "갑자기 생각났어",
+  "아 맞아 나도 그거 알아",
+  "오늘 날씨 좋더라",
+  "너는 어떻게 생각해?",
+  "그 얘기 더 해봐",
+  "아 그건 좀 웃긴데",
+  "나 지금 쉬고 있어",
+  "오늘은 뭐 먹었어?",
+  "다음에 나도 알려줘",
+  "그거 완전 네 스타일인데?"
+];
+
+// 会話履歴を読み込む
+let chatHistory = JSON.parse(
+  localStorage.getItem("xiaojunChat") || "null"
+);
+
+// 初回はHTMLにある最初の会話を保存
+if (!chatHistory) {
+  const initialMessages = document.querySelectorAll(
+    "#chat-messages .message"
+  );
+
+  chatHistory = Array.from(initialMessages).map(message => ({
+    type: message.classList.contains("sent") ? "sent" : "received",
+    text: message.querySelector(".bubble").textContent
+  }));
+
+  localStorage.setItem("xiaojunChat", JSON.stringify(chatHistory));
+}
+
+let userMessageCount = chatHistory.filter(
+  item => item.type === "sent"
+).length;
+
+let musicSent = localStorage.getItem("xiaojunMusicSent") === "true";
+let musicScheduled = musicSent;
+
+// メッセージを表示する
+function renderChat() {
+  const messages = document.getElementById("chat-messages");
+  messages.innerHTML = "";
+
+  chatHistory.forEach(item => {
+    const message = document.createElement("div");
+    message.className = "message " + item.type;
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = item.text;
+
+    message.appendChild(bubble);
+
+    if (item.type === "received") {
+      const name = document.createElement("small");
+      name.textContent = "肖俊";
+      message.appendChild(name);
+    }
+
+    messages.appendChild(message);
+  });
+
+  if (musicSent) {
+    renderMusicMessage();
+  }
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// 会話を保存する
+function saveChat() {
+  localStorage.setItem("xiaojunChat", JSON.stringify(chatHistory));
+}
+
+// 新しいメッセージを追加する
+function addChatMessage(text, type) {
+  chatHistory.push({
+    text: text,
+    type: type
+  });
+
+  saveChat();
+  renderChat();
+}
+
+// YouTubeおすすめカード
+function renderMusicMessage() {
+  const messages = document.getElementById("chat-messages");
+
+  if (document.getElementById("xiaojun-music-card")) return;
+
+  const card = document.createElement("div");
+  card.id = "xiaojun-music-card";
+  card.className = "message received";
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+
+  const title = document.createElement("p");
+  title.textContent = "이거 꼭 들어봐!! 🎧";
+
+  const link = document.createElement("a");
+  link.href = "https://youtu.be/JvzbFG4-5W4?si=Mk6VTFkr2yA9dlec";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "▶ YouTube에서 듣기";
+  link.style.color = "#9ee8b7";
+  link.style.display = "block";
+  link.style.marginTop = "10px";
+
+  bubble.appendChild(title);
+  bubble.appendChild(link);
+
+  const name = document.createElement("small");
+  name.textContent = "肖俊";
+
+  card.appendChild(bubble);
+  card.appendChild(name);
+
+  messages.appendChild(card);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// 曲をおすすめする
+function sendMusicRecommendation() {
+  if (musicSent) return;
+
+  musicSent = true;
+  localStorage.setItem("xiaojunMusicSent", "true");
+
+  addChatMessage("아 맞다, 너 이거 들어봤어?", "received");
+
+  setTimeout(() => {
+    addChatMessage("내가 추천하는 노래야. 한번 들어봐ㅎㅎ", "received");
+    renderMusicMessage();
+  }, 1200);
+}
+
+// メッセージ送信
+function sendMessage() {
+  const input = document.getElementById("chat-input-text");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  addChatMessage(text, "sent");
+  input.value = "";
+
+  userMessageCount++;
+
+  setTimeout(() => {
+    const reply = chatReplies[
+      Math.floor(Math.random() * chatReplies.length)
+    ];
+
+    addChatMessage(reply, "received");
+
+    // 5回送信したら最後に曲をおすすめ
+    if (userMessageCount >= 5 && !musicScheduled) {
+      musicScheduled = true;
+
+      setTimeout(() => {
+        sendMusicRecommendation();
+      }, 1500);
+    }
+  }, 1000);
+}
+
+// Enterキーでも送信できる
+document.getElementById("chat-input-text").addEventListener(
+  "keydown",
+  function(event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  }
+);
+
+// 保存した会話を画面に表示
+renderChat();</script>
 </body>
 </html>
