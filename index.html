@@ -564,18 +564,24 @@ function renderCalendar() {
 
       const box = document.getElementById("calendarEvent");
 
-      if (event) {
-        box.innerHTML = `
-          <small>XIAOJUN · WAYV ♡</small>
-          <h3>${event[0]}</h3>
-          <p>${event[1]}</p>
-          <small>${year}.${String(month + 1).padStart(2, "0")}.${String(day).padStart(2, "0")}</small>
-        `;
-      } else {
-        box.innerHTML = `
-          <small>${year}.${month + 1}.${day}</small>
-          <h3>NO SCHEDULE ♡</h3>
-          <p>오늘도 샤오쥔 생각하는 날!</p>
+     if (event) {
+  box.innerHTML = `
+    <small>XIAOJUN · WAYV ♡</small>
+    <h3>${event[0]}</h3>
+    <p>${event[1]}</p>
+
+    <img src="IMG_0455.jpeg"
+         style="width:100%;max-width:220px;height:220px;object-fit:cover;border-radius:15px;border:2px solid #eeb4d5;margin:12px auto;display:block;">
+
+    <small>${year}.${String(month + 1).padStart(2, "0")}.${String(day).padStart(2, "0")}</small>
+  `;
+} else {
+  box.innerHTML = `
+    <small>${year}.${month + 1}.${day}</small>
+    <h3>NO SCHEDULE ♡</h3>
+    <p>오늘도 샤오쥔 생각하는 날!</p>
+  `;
+}
         `;
       }
     };
