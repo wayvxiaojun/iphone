@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dce1e8"/>
+      <stop offset="100%" stop-color="#8e98a6"/>
+    </linearGradient>
+    <linearGradient id="gear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#c5ccd5"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="96" height="96" rx="22" fill="url(#bg)"/>
+
+  <g transform="translate(50 50)">
+    <path d="
+      M-7 -37 H7 L10 -27
+      Q15 -25 19 -22 L29 -26
+      L37 -13 L29 -5
+      Q30 0 29 5 L37 13
+      L29 26 L19 22
+      Q15 25 10 27 L7 37
+      H-7 L-10 27
+      Q-15 25 -19 22 L-29 26
+      L-37 13 L-29 5
+      Q-30 0 -29 -5 L-37 -13
+      L-29 -26 L-19 -22
+      Q-15 -25 -10 -27 Z"
+      fill="url(#gear)" stroke="#8d96a2" stroke-width="2"/>
+    <circle r="19" fill="#9da6b2"/>
+    <circle r="12" fill="#e9edf2"/>
+  </g>
+</svg>
