@@ -306,7 +306,34 @@ function saveMemo(){
   color: white;
   font-size: 25px;
 }
-</style>
+.notification {
+  position: absolute;
+  top: 320px;
+  left: 20px;
+  right: 20px;
+  padding: 15px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(20px);
+  color: white;
+  text-align: left;
+}
+
+.notification-title {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.notification-name {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.notification-message {
+  font-size: 14px;
+}</style>
 
 <script>
 function updateLockTime() {
