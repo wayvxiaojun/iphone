@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XIAOJUN iPhone</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#171017;color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Arial",sans-serif;
+  display:flex;justify-content:center;align-items:center;
+  min-height:100vh;
+}
+.phone{
+  width:350px;height:720px;max-height:94vh;
+  border:7px solid #28232a;border-radius:43px;
+  overflow:hidden;position:relative;
+  background:linear-gradient(155deg,#381b35,#100e18 60%,#421a35);
+  box-shadow:0 0 45px #e75caa33;
+}
+.status{
+  height:42px;padding:13px 24px 0;
+  display:flex;justify-content:space-between;
+  font-size:12px;font-weight:bold;
+}
+.screen{padding:15px 20px}
+.clock{text-align:center;margin-top:35px}
+.date{font-size:14px;color:#f5b7d8}
+.time{font-size:65px;font-weight:200;letter-spacing:-3px}
+.greeting{text-align:center;color:#f5b7d8;font-size:12px;margin-top:5px}
+.widget{
+  margin:28px 0 25px;padding:15px;
+  background:#ffffff16;border:1px solid #ffffff20;
+  border-radius:20px;
+}
+.widget small{color:#eeb4d5}
+.widget h2{margin:8px 0 3px;font-size:20px}
+.apps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:22px 12px;margin-top:30px;
+}
+.app{text-align:center;cursor:pointer;font-size:11px;color:#fff}
+.icon{
+  width:57px;height:57px;border-radius:17px;
+  display:flex;align-items:center;justify-content:center;
+  margin:auto auto 7px;font-size:27px;
+  background:linear-gradient(145deg,#f3a4cf,#71355e);
+  box-shadow:0 4px 12px #0005;
+}
+.app:nth-child(2n) .icon{background:linear-gradient(145deg,#51415f,#17131e)}
+.app:nth-child(3n) .icon{background:linear-gradient(145deg,#e5a5c8,#9c557e)}
+.dock{
+  position:absolute;bottom:15px;left:18px;right:18px;
+  padding:12px;background:#ffffff20;
+  border:1px solid #ffffff20;border-radius:24px;
+  display:flex;justify-content:space-around;
+}
+.dock .icon{margin:0;width:53px;height:53px}
+.home-indicator{
+  position:absolute;bottom:5px;left:40%;width:20%;
+  height:4px;border-radius:5px;background:white;
+}
+.page{
+  display:none;position:absolute;inset:42px 0 0;
+  background:linear-gradient(150deg,#281625,#100e18);
+  padding:20px;overflow-y:auto;
+}
+.page h2{color:#f5b7d8}
+.back{
+  border:0;background:#ffffff20;color:white;
+  border-radius:15px;padding:9px 14px;cursor:pointer;
+}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.photo{
+  height:145px;border-radius:15px;
+  background:linear-gradient(135deg,#d78eb7,#493047);
+  display:flex;align-items:center;justify-content:center;
+  font-size:35px;
+}
+.item{
+  background:#ffffff14;border-radius:15px;
+  padding:14px;margin:12px 0;
+}
+.item small{color:#eab0d1}
+button{font-family:inherit}
+input,textarea{
+  width:100%;padding:12px;border:0;border-radius:12px;
+  margin-top:10px;background:#ffffff18;color:white;
+}
+textarea{height:100px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status">
+    <span id="statusTime">19:00</span>
+    <span>●●●  Wi-Fi  ▰</span>
+  </div>
+
+  <div id="home" class="screen">
+    <div class="clock">
+      <div class="date" id="date"></div>
+      <div class="time" id="clock">19:00</div>
+      <div class="greeting">♡ WELCOME TO XIAOJUN'S WORLD ♡</div>
+    </div>
+
+    <div class="widget">
+      <small>✦ YOUR DAILY DOSE OF XIAOJUN</small>
+      <h2>오늘도 샤오쥔 ♡</h2>
+      <div style="font-size:12px;color:#eac8dc">
+        A little happiness in every day.
+      </div>
+    </div>
+
+    <div class="apps">
+      <div class="app" onclick="openApp('photos')"><div class="icon">♡</div>PHOTOS</div>
+      <div class="app" onclick="openApp('music')"><div class="icon">♫</div>MUSIC</div>
+      <div class="app" onclick="openApp('calendar')"><div class="icon">▣</div>CALENDAR</div>
+      <div class="app" onclick="openApp('notes')"><div class="icon">✎</div>NOTES</div>
+      <div class="app" onclick="openApp('chat')"><div class="icon">♡</div>CHAT</div>
+      <div class="app" onclick="openApp('profile')"><div class="icon">★</div>PROFILE</div>
+      <div class="app" onclick="openApp('diary')"><div class="icon">✧</div>DIARY</div>
+      <div class="app" onclick="openApp('about')"><div class="icon">☾</div>ABOUT</div>
+    </div>
+
+    <div class="dock">
+      <div class="icon" onclick="openApp('photos')">📷</div>
+      <div class="icon" onclick="openApp('music')">🎧</div>
+      <div class="icon" onclick="openApp('chat')">💌</div>
+      <div class="icon" onclick="openApp('notes')">📝</div>
+    </div>
+  </div>
+
+  <div id="photos" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>♡ PHOTO ALBUM</h2>
+    <p>MY FAVORITE XIAOJUN MOMENTS</p>
+    <div class="photo-grid">
+      <div class="photo">🖤</div><div class="photo">🌹</div>
+      <div class="photo">✨</div><div class="photo">♡</div>
+      <div class="photo">🎀</div><div class="photo">🌙</div>
+    </div>
+    <p style="color:#eab0d1;font-size:12px">Your memories, your favorite moments.</p>
+  </div>
+
+  <div id="music" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>♫ NOW PLAYING</h2>
+    <div style="text-align:center;padding:35px 0">
+      <div style="font-size:85px">🎧</div>
+      <h2>WAYV</h2>
+      <p style="color:#eab0d1">YOUR FAVORITE PLAYLIST</p>
+    </div>
+    <div class="item">♫ Love Talk <small>WAYV</small></div>
+    <div class="item">♫ All For Love <small>WAYV</small></div>
+    <div class="item">♫ Phantom <small>WAYV</small></div>
+    <div class="item">♫ Moonwalk <small>WAYV</small></div>
+  </div>
+
+  <div id="calendar" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>▣ SCHEDULE</h2>
+    <div class="item"><small>WAYV</small><h3>EVENT DAY ♡</h3>Make more memories together!</div>
+    <div class="item"><small>XIAOJUN</small><h3>SPECIAL DAY</h3>Don't forget this day ✨</div>
+    <p style="font-size:12px;color:#eab0d1">Your own fan activity calendar.</p>
+  </div>
+
+  <div id="notes" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>✎ MY NOTES</h2>
+    <p>Write down your precious memories ♡</p>
+    <textarea id="memo" placeholder="오늘의 샤오쥔 기록..."></textarea>
+    <button class="back" onclick="saveMemo()">SAVE ♡</button>
+    <p id="saved" style="color:#f5b7d8"></p>
+  </div>
+
+  <div id="chat" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>♡ CHAT</h2>
+    <div class="item">
+      <small>XIAOJUN · FAN MADE</small>
+      <p>오늘 하루 어땠어? ♡</p>
+    </div>
+    <div class="item">
+      <small>YOU</small>
+      <p>너 덕분에 행복했어 🥺</p>
+    </div>
+    <p style="font-size:11px;color:#eab0d1">※ Fictional fan-made chat. Not an actual message.</p>
+  </div>
+
+  <div id="profile" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>★ PROFILE</h2>
+    <div class="item" style="text-align:center">
+      <div style="font-size:65px">🐻</div>
+      <h2>XIAOJUN</h2>
+      <p>WayV · NCT</p>
+      <small>MY FAVORITE PERSON ♡</small>
+    </div>
+  </div>
+
+  <div id="diary" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>✧ MY DIARY</h2>
+    <div class="item">오늘도 샤오쥔 덕분에 행복한 하루 ♡</div>
+    <div class="item">언젠가 또 만날 날을 기다리며...</div>
+  </div>
+
+  <div id="about" class="page">
+    <button class="back" onclick="goHome()">← HOME</button>
+    <h2>☾ ABOUT</h2>
+    <p>XIAOJUN & WAYV</p>
+    <div class="item">A little fan-made world made with love.</div>
+    <p style="color:#eab0d1">Made with ♡</p>
+  </div>
+
+  <div class="home-indicator"></div>
+</div>
+
+<script>
+function updateClock(){
+  const now=new Date();
+  const time=now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('clock').textContent=time;
+  document.getElementById('statusTime').textContent=time;
+  document.getElementById('date').textContent=
+    now.toLocaleDateString('ja-JP',{month:'long',day:'numeric',weekday:'long'});
+}
+updateClock();
+setInterval(updateClock,1000);
+
+function openApp(id){
+  document.getElementById('home').style.display='none';
+  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+  document.getElementById('home').style.display='block';
+}
+function saveMemo(){
+  document.getElementById('saved').textContent='Saved ♡';
+}
+</script>
+</body>
+</html>
