@@ -385,7 +385,8 @@ body {background: #000000 !important;}
     <p id="saved" style="color:#f5b7d8"></p>
   </div>
 
-  <div id="chat" class="page">
+<div id="chat" class="page">
+
   <div class="chat-header">
     <button class="back" onclick="goHome()">←</button>
     <div class="chat-profile">
@@ -398,8 +399,9 @@ body {background: #000000 !important;}
   </div>
 
   <div id="chat-messages" class="chat-messages">
+
     <div class="message received">
-      <div class="bubble">오늘 뭐했어?div>
+      <div class="bubble">오늘 뭐 했어?</div>
       <small>肖俊</small>
     </div>
 
@@ -409,13 +411,26 @@ body {background: #000000 !important;}
     </div>
 
     <div class="message sent">
-      <div class="bubble">나 지금 집이야ㅋㅋ</div>
+      <div class="bubble">나 지금 집이야</div>
     </div>
 
     <div class="message received">
-      <div class="bubble">오 집순이네ㅋㅋㅋㅋ</div>
+      <div class="bubble">오 집순이네</div>
       <small>肖俊</small>
     </div>
+
+  </div>
+
+  <div class="chat-input">
+    <input
+      id="chat-input-text"
+      type="text"
+      placeholder="メッセージを入力..."
+    >
+    <button onclick="sendMessage()">➤</button>
+  </div>
+
+</div>
   </div>
 
   <div class="chat-input">
