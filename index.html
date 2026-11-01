@@ -277,16 +277,43 @@ body {background: #000000 !important;}
   </div>
 
   <div id="chat" class="page">
-    <button class="back" onclick="goHome()">← HOME</button>
-    <h2>♡ CHAT</h2>
-    <div class="item">
-      <small>肖俊 </small>
-      <p>我会让你看到整个世界 </p>
+  <div class="chat-header">
+    <button class="back" onclick="goHome()">←</button>
+    <div class="chat-profile">
+      <div class="chat-avatar">肖</div>
+      <div>
+        <strong>XIAOJUN</strong>
+        <small>online</small>
+      </div>
     </div>
-    <div class="item">
-      <small>肖俊 </small>
-      <p>没有什么，就想发给宝宝 </p>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+    <div class="message received">
+      <div class="bubble">오늘 뭐했어?div>
+      <small>肖俊</small>
     </div>
+
+    <div class="message received">
+      <div class="bubble">그냥 갑자기 생각나서 연락했어ㅎㅎ</div>
+      <small>肖俊</small>
+    </div>
+
+    <div class="message sent">
+      <div class="bubble">나 지금 집이야ㅋㅋ</div>
+    </div>
+
+    <div class="message received">
+      <div class="bubble">오 집순이네ㅋㅋㅋㅋ</div>
+      <small>肖俊</small>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input id="chat-input-text" type="text" placeholder="メッセージを入力...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
     
   </div>
 
