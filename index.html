@@ -111,7 +111,44 @@ input,textarea{
 }
 textarea{height:100px}
 body {background: #000000 !important;}
-</style>
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 25px 15px;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#photo-viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+#photo-viewer img {
+  max-width: 90%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+#photo-viewer span {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: white;
+  font-size: 35px;
+}</style>
 </head>
 <body>
 <div class="phone">
@@ -186,16 +223,27 @@ body {background: #000000 !important;}
   </div>
 
   <div id="photos" class="page">
-    <button class="back" onclick="goHome()">← HOME</button>
-    <h2>♡ PHOTO ALBUM</h2>
-    <p>MY FAVORITE XIAOJUN MOMENTS</p>
-    <div class="photo-grid">
-      <div class="photo">🖤</div><div class="photo">🌹</div>
-      <div class="photo">✨</div><div class="photo">♡</div>
-      <div class="photo">🎀</div><div class="photo">🌙</div>
-    </div>
-    <p style="color:#eab0d1;font-size:12px">Your memories, your favorite moments.</p>
+  <button class="back" onclick="goHome()">← HOME</button>
+
+  <h2>♡ PHOTO ALBUM</h2>
+  <p>MY FAVORITE XIAOJUN MOMENTS</p>
+
+  <div class="photo-grid">
+    <img src="01C1C5BA-C3BF-4BAB-8122-97A08FD72C8A.jpeg" onclick="showPhoto(this)">
+    <img src="485151205277078eece2ffeac450bfbbced3bffd.jpeg" onclick="showPhoto(this)">
+    <img src="8a434c1b6d757e0e6d63d02d93b3580b9567eacc.jpeg" onclick="showPhoto(this)">
+    <img src="IMG_0455.jpeg" onclick="showPhoto(this)">
+    <img src="IMG_0755.jpeg" onclick="showPhoto(this)">
+    <img src="IMG_0757.jpeg" onclick="showPhoto(this)">
+    <img src="a4262ba6f041af2be916356f2a76da70612793ec.jpeg" onclick="showPhoto(this)">
+    <img src="d547ffef7d430c73e38d782e2cab92e8d1856216.jpeg" onclick="showPhoto(this)">
   </div>
+
+  <div id="photo-viewer" onclick="closePhoto()">
+    <span>×</span>
+    <img id="big-photo">
+  </div>
+</div>
 
   <div id="music" class="page">
     <button class="back" onclick="goHome()">← HOME</button>
@@ -436,6 +484,13 @@ document.getElementById("lock-screen").addEventListener("touchend", function(e) 
     unlockPhone();
   }
 });
-</script>
+function showPhoto(photo) {
+  document.getElementById("big-photo").src = photo.src;
+  document.getElementById("photo-viewer").style.display = "flex";
+}
+
+function closePhoto() {
+  document.getElementById("photo-viewer").style.display = "none";
+}</script>
 </body>
 </html>
