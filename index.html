@@ -333,6 +333,19 @@ function unlockPhone() {
 
 updateLockTime();
 setInterval(updateLockTime, 1000);
+let startY = 0;
+
+document.getElementById("lock-screen").addEventListener("touchstart", function(e) {
+  startY = e.touches[0].clientY;
+});
+
+document.getElementById("lock-screen").addEventListener("touchend", function(e) {
+  let endY = e.changedTouches[0].clientY;
+
+  if (startY - endY > 50) {
+    unlockPhone();
+  }
+});
 </script>
 </body>
 </html>
