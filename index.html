@@ -135,7 +135,76 @@ textarea{height:100px}
 .notification-title{font-size:12px;opacity:.8}
 .notification-name{font-size:15px;font-weight:bold;margin:6px 0}
 .notification-message{font-size:14px}
-</style>
+/* XIAOJUN CALENDAR */
+.calendar-box {
+  background: #181318;
+  border: 1px solid #75445f;
+  border-radius: 18px;
+  padding: 15px 10px;
+  margin: 15px 0;
+  color: white;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.calendar-header h3 {
+  font-size: 15px;
+  color: #f2b6d5;
+}
+
+.calendar-header button {
+  background: #382333;
+  color: #f2b6d5;
+  border: 1px solid #75445f;
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-size: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.calendar-grid div {
+  min-height: 38px;
+  padding: 8px 0;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.calendar-grid .weekday {
+  color: #eeb4d5;
+  font-weight: bold;
+}
+
+.calendar-grid .day {
+  background: #29202a;
+  cursor: pointer;
+}
+
+.calendar-grid .day.has-event {
+  background: #633d56;
+  color: white;
+  border: 1px solid #eeb4d5;
+}
+
+.calendar-grid .day.selected {
+  background: #eeb4d5;
+  color: #241521;
+  font-weight: bold;
+}
+
+.calendar-grid .empty {
+  visibility: hidden;
+}</style>
 </head>
 
 <body>
@@ -216,11 +285,26 @@ textarea{height:100px}
   </div>
 
   <div id="calendar" class="page">
-    <button class="back" onclick="goHome()">← HOME</button>
-    <h2>▣ SCHEDULE</h2>
-    <div class="item"><small>WAYV</small><h3>EVENT DAY ♡</h3>Make more memories together!</div>
-    <div class="item"><small>XIAOJUN</small><h3>SPECIAL DAY</h3>Don't forget this day ✨</div>
+  <button class="back" onclick="goHome()">← HOME</button>
+
+  <h2>♡ XIAOJUN CALENDAR</h2>
+
+  <div class="calendar-box">
+    <div class="calendar-header">
+      <button onclick="changeMonth(-1)">‹</button>
+      <h3 id="calendarMonth">NOVEMBER 2026</h3>
+      <button onclick="changeMonth(1)">›</button>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid"></div>
   </div>
+
+  <div class="item" id="calendarEvent">
+    <small>XIAOJUN ♡</small>
+    <h3>予定を選んでね</h3>
+    日付をタップすると予定が表示されるよ！
+  </div>
+</div>
 
   <div id="notes" class="page">
     <button class="back" onclick="goHome()">← HOME</button>
@@ -400,7 +484,119 @@ function sendMessage(){
 document.getElementById('chat-input-text').addEventListener('keydown',e=>{
   if(e.key==='Enter')sendMessage();
 });
-</script>
+// XIAOJUN & WAYV CALENDAR
+let calendarDate = new Date(2026, 10, 1);
+let selectedCalendarDate = null;
+
+const xiaojunEvents = {
+  "2019-1-17": ["💗 WAYV DEBUT", "The Vision"],
+  "2019-5-9": ["🎤 WAYV COMEBACK", "Take Off"],
+  "2019-10-29": ["🌙 WAYV COMEBACK", "Take Over the Moon"],
+  "2019-11-5": ["🎵 WAYV RELEASE", "Love Talk (English Ver.)"],
+
+  "2020-3-13": ["🌙 WAYV RELEASE", "Take Over the Moon - Sequel"],
+  "2020-6-9": ["🎤 WAYV COMEBACK", "Awaken The World"],
+  "2020-6-18": ["🎵 WAYV RELEASE", "Turn Back Time (Korean Ver.)"],
+  "2020-7-29": ["🎵 WAYV RELEASE", "Bad Alive (English Ver.)"],
+
+  "2021-3-10": ["🎤 WAYV COMEBACK", "Kick Back"],
+
+  "2022-12-28": ["🎤 WAYV COMEBACK", "Phantom"],
+
+  "2023-5-6": ["🎵 WAYV RELEASE", "Welcome To My Paradise"],
+  "2023-11-1": ["🎤 WAYV COMEBACK", "On My Youth"],
+
+  "2024-6-3": ["🎤 WAYV COMEBACK", "Give Me That"],
+  "2024-8-8": ["🇯🇵 WAYV RELEASE", "The Highest"],
+  "2024-11-25": ["🎤 WAYV COMEBACK", "FREQUENCY"],
+
+  "2025-7-18": ["🎤 WAYV COMEBACK", "BIG BANDS"],
+  "2025-12-8": ["❄️ WAYV RELEASE", "Eternal White"],
+
+  "2026-8-8": ["🎂 XIAOJUN BIRTHDAY", "생일 축하해 샤오쥔 ♡"],
+  "2026-8-10": ["🎤 WAYV COMEBACK", "Vision Wings"]
+};
+
+function renderCalendar() {
+  const year = calendarDate.getFullYear();
+  const month = calendarDate.getMonth();
+
+  document.getElementById("calendarMonth").textContent =
+    calendarDate.toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric"
+    }).toUpperCase();
+
+  const grid = document.getElementById("calendarGrid");
+  grid.innerHTML = "";
+
+  ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].forEach(day => {
+    const el = document.createElement("div");
+    el.className = "weekday";
+    el.textContent = day;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    grid.appendChild(empty);
+  }
+
+  for (let day = 1; day <= lastDate; day++) {
+    const el = document.createElement("div");
+    const key = `${year}-${month + 1}-${day}`;
+    const event = xiaojunEvents[key];
+
+    el.className = "day";
+
+    if (event) el.classList.add("has-event");
+    if (selectedCalendarDate === day) el.classList.add("selected");
+
+    el.textContent = event ? `${day} ♡` : day;
+
+    el.onclick = () => {
+      selectedCalendarDate = day;
+      renderCalendar();
+
+      const box = document.getElementById("calendarEvent");
+
+      if (event) {
+        box.innerHTML = `
+          <small>XIAOJUN · WAYV ♡</small>
+          <h3>${event[0]}</h3>
+          <p>${event[1]}</p>
+          <small>${year}.${String(month + 1).padStart(2, "0")}.${String(day).padStart(2, "0")}</small>
+        `;
+      } else {
+        box.innerHTML = `
+          <small>${year}.${month + 1}.${day}</small>
+          <h3>NO SCHEDULE ♡</h3>
+          <p>오늘도 샤오쥔 생각하는 날!</p>
+        `;
+      }
+    };
+
+    grid.appendChild(el);
+  }
+}
+
+function changeMonth(amount) {
+  calendarDate.setMonth(calendarDate.getMonth() + amount);
+  selectedCalendarDate = null;
+  renderCalendar();
+
+  document.getElementById("calendarEvent").innerHTML = `
+    <small>XIAOJUN ♡</small>
+    <h3>予定を選んでね</h3>
+    日付をタップすると予定が表示されるよ！
+  `;
+}
+
+renderCalendar();</script>
 
 </body>
 </html>}
