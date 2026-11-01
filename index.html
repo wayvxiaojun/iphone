@@ -271,18 +271,36 @@ textarea{height:100px}
   </div>
 
   <div id="music" class="page">
-    <button class="back" onclick="goHome()">← HOME</button>
-    <h2>♫ NOW PLAYING</h2>
-    <div style="text-align:center;padding:25px 0">
-      <div style="font-size:80px">🎧</div>
-      <h2>WAYV</h2>
-      <p style="color:#eab0d1">YOUR FAVORITE PLAYLIST</p>
+  <button class="back" onclick="goHome()">← HOME</button>
+  <h2>♫ WAYV MUSIC</h2>
+
+  <div style="background:#181318;border-radius:18px;padding:12px;margin:15px 0;">
+    <div id="musicScreen" style="width:100%;aspect-ratio:16/9;background:#080808;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#eeb4d5;">
+      ♡ SELECT A SONG ♡
     </div>
-    <div class="item">♫ Love Talk <small>WAYV</small></div>
-    <div class="item">♫ All For Love <small>WAYV</small></div>
-    <div class="item">♫ Phantom <small>WAYV</small></div>
-    <div class="item">♫ Moonwalk <small>WAYV</small></div>
+
+    <h3 id="musicTitle" style="text-align:center;margin:15px 0 5px;">NOW PLAYING</h3>
+    <p style="text-align:center;color:#eeb4d5;">WAYV · XIAOJUN ♡</p>
   </div>
+
+  <h3>♡ PLAYLIST</h3>
+
+  <div class="item" onclick="playWayvVideo('sXbwKNPzvMk','Love Talk')">
+    ♫ Love Talk <small>WAYV</small>
+  </div>
+
+  <div class="item" onclick="playWayvVideo('UsaGgEjqNoE','Moonwalk')">
+    ♫ Moonwalk <small>WAYV</small>
+  </div>
+
+  <div class="item" onclick="playWayvVideo('Urv-mwiUmdk','Phantom')">
+    ♫ Phantom <small>WAYV</small>
+  </div>
+
+  <div class="item" onclick="playWayvVideo('VISION_WINGS_VIDEO_ID','Vision Wings')">
+    ♫ Vision Wings <small>WAYV · 2026</small>
+  </div>
+</div>
 
   <div id="calendar" class="page">
   <button class="back" onclick="goHome()">← HOME</button>
@@ -602,7 +620,31 @@ function changeMonth(amount) {
   `;
 }
 
-renderCalendar();</script>
+renderCalendar();
+function playWayvVideo(videoId, title) {
+  const screen = document.getElementById("musicScreen");
+  const titleBox = document.getElementById("musicTitle");
+
+  if (videoId === "VISION_WINGS_VIDEO_ID") {
+    screen.innerHTML = "♡ VISION WINGS VIDEO COMING SOON ♡";
+    titleBox.textContent = title;
+    return;
+  }
+
+  screen.innerHTML = `
+    <iframe
+      width="100%"
+      height="100%"
+      src="https://www.youtube.com/embed/${videoId}?playsinline=1"
+      title="${title}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  `;
+
+  titleBox.textContent = "♫ " + title;
+}</script>
 
 </body>
 </html>}
