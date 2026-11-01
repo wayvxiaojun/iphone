@@ -244,5 +244,94 @@ function saveMemo(){
   document.getElementById('saved').textContent='Saved ♡';
 }
 </script>
-</body>
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-content">
+    <div id="lock-date"></div>
+    <div id="lock-time">20:00</div>
+    <div class="lock-message">Swipe up to unlock</div>
+    <button onclick="unlockPhone()">↑</button>
+  </div>
+</div>
+
+<style>
+#lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background:
+    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.55)),
+    url("xiaojun-wallpaper.jpg") center/cover no-repeat;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.lock-content {
+  padding-top: 100px;
+}
+
+#lock-date {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#lock-time {
+  font-size: 90px;
+  font-weight: 300;
+  letter-spacing: -4px;
+}
+
+.lock-message {
+  position: absolute;
+  bottom: 90px;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+}
+
+#lock-screen button {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: rgba(255,255,255,.2);
+  color: white;
+  font-size: 25px;
+}
+</style>
+
+<script>
+function updateLockTime() {
+  const now = new Date();
+
+  document.getElementById("lock-time").textContent =
+    now.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
+
+  document.getElementById("lock-date").textContent =
+    now.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    });
+}
+
+function unlockPhone() {
+  document.getElementById("lock-screen").style.display = "none";
+}
+
+updateLockTime();
+setInterval(updateLockTime, 1000);
+</script></body>
 </html>
