@@ -167,7 +167,10 @@ textarea{height:100px}
 }
 
 .chat-messages{
-  padding:10px 12px 20px;
+  padding:10px 12px 90px;
+  height:calc(100% - 150px);
+  overflow-y:auto;
+  box-sizing:border-box;
 }
 
 .message{
@@ -207,11 +210,13 @@ textarea{height:100px}
   margin:4px;
 }
 
-.chat-input{
+..chat-input{
   display:flex;
   gap:8px;
-  position:sticky;
-  bottom:0;
+  position:absolute;
+  bottom:20px;
+  left:10px;
+  right:10px;
   background:rgba(20,20,25,0.95);
   padding:10px 8px;
   border-top:1px solid #ffffff18;
@@ -488,44 +493,49 @@ textarea{height:100px}
   </p>
 </div>
 
-  <div id="chat" class="page">
-    <div class="chat-header">
-      <button class="back" onclick="goHome()">←</button>
-      <div class="chat-avatar">肖</div>
-      <div class="chat-profile">
-        <strong>XIAOJUN</strong>
-        <small>online</small>
+<div id="chat" class="page">
+  <div class="chat-header">
+    <button class="back" onclick="goHome()">←</button>
+    <div class="chat-avatar">肖</div>
+    <div class="chat-profile">
+      <strong>XIAOJUN</strong>
+      <small>online</small>
+    </div>
+  </div>
+
+  <div id="chat-messages" class="chat-messages">
+
+    <div class="message received">
+      <img class="chat-message-avatar" src="xiaojun-avatar.jpg">
+      <div>
+        <div class="bubble">오늘 어떘어?</div>
+        <small>肖俊</small>
       </div>
     </div>
 
-    
-    
+    <div class="message sent">
+      <div class="bubble">바빴어?</div>
+    </div>
+
+    <div class="message sent">
+      <div class="bubble">웅ㅠㅠㅠ</div>
+    </div>
+
     <div class="message received">
-  <img class="chat-message-avatar" src="xiaojun-avatar.jpg">
-  <div>
-    <div class="bubble">오늘 뭐했어?</div>
-    <small>肖俊</small>
+      <img class="chat-message-avatar" src="xiaojun-avatar.jpg">
+      <div>
+        <div class="bubble">밥은 먹었어?</div>
+        <small>肖俊</small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="chat-input">
+    <input id="chat-input-text" type="text" placeholder="メッセージを入力...">
+    <button onclick="sendMessage()">➤</button>
   </div>
 </div>
-      <div class="message sent">
-        <div class="bubble">갑자기 왜</div>
-      </div>
-      <div class="message received">
-        <div class="bubble">그냥 갑자기 생각나서</div><small>肖俊</small>
-      </div>
-      <div class="message sent">
-        <div class="bubble">그렇군</div>
-      </div>
-      <div class="message received">
-        <div class="bubble">웅 밥먹었어?</div><small>肖俊</small>
-      </div>
-    </div>
-
-    <div class="chat-input">
-      <input id="chat-input-text" type="text" placeholder="メッセージを入力...">
-      <button onclick="sendMessage()">➤</button>
-    </div>
-  </div>
 
   <div id="xiaojun-popup" style="
   display:none;
