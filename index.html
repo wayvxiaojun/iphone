@@ -479,25 +479,60 @@ function saveMemo(){
 document.getElementById('memo').value=localStorage.getItem('xiaojunMemo')||'';
 
 function sendMessage(){
-  const input=document.getElementById('chat-input-text');
-  const message=input.value.trim();
-  if(!message)return;
-  const area=document.getElementById('chat-messages');
-  const bubble=document.createElement('div');
-  bubble.className='message sent';
-  bubble.innerHTML='<div class="bubble"></div>';
-  bubble.querySelector('.bubble').textContent=message;
+  const input = document.getElementById('chat-input-text');
+  const message = input.value.trim();
+  if (!message) return;
+
+  const area = document.getElementById('chat-messages');
+
+  const bubble = document.createElement('div');
+  bubble.className = 'message sent';
+  bubble.innerHTML = '<div class="bubble"></div>';
+  bubble.querySelector('.bubble').textContent = message;
   area.appendChild(bubble);
-  input.value='';
-  area.scrollTop=area.scrollHeight;
-  setTimeout(()=>{
-    const reply=document.createElement('div');
-    reply.className='message received';
-    reply.innerHTML='<div class="bubble"></div><small>肖俊</small>';
-    reply.querySelector('.bubble').textContent='ㅎㅎ 오늘도 고생했어 ♡';
+
+  input.value = '';
+  area.scrollTop = area.scrollHeight;
+
+  setTimeout(() => {
+    const replies = [
+      '오늘 하루도 수고했어.',
+      '너무 무리하지 않았으면 좋겠어',
+      '요즘 잘 지내?',
+      '오늘은 일찍 자',
+      '내일은 오늘보다 좋은 하루가 될 거야',
+      '가끔은 아무것도 안 해도 괜찮아',
+      '오늘 있었던 일 얘기해봐',
+      '잘하고 있으니까 너무 걱정하지 마'
+    ];
+
+    const reply = document.createElement('div');
+    reply.className = 'message received';
+    reply.innerHTML = '<div class="bubble"></div><small>肖俊</small>';
+
+    const bubbleBox = reply.querySelector('.bubble');
+
+    if (Math.random() < 0.25) {
+      bubbleBox.textContent =
+        '오늘은 이 노래 들으면서 마무리하자. 내일도 힘내자.';
+
+      const link = document.createElement('a');
+      link.href = 'https://youtu.be/JvzbFG4-5W4';
+      link.target = '_blank';
+      link.textContent = '▶ 오늘의 추천곡 듣기';
+      link.style.display = 'block';
+      link.style.marginTop = '10px';
+      link.style.color = '#b8b8b8';
+
+      bubbleBox.appendChild(link);
+    } else {
+      bubbleBox.textContent =
+        replies[Math.floor(Math.random() * replies.length)];
+    }
+
     area.appendChild(reply);
-    area.scrollTop=area.scrollHeight;
-  },900);
+    area.scrollTop = area.scrollHeight;
+  }, 900);
 }
 document.getElementById('chat-input-text').addEventListener('keydown',e=>{
   if(e.key==='Enter')sendMessage();
