@@ -55,16 +55,36 @@ body{
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 }
+.icon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
 }
-.icon img{width:100%;height:100%;object-fit:contain}
+
 .dock{
-  position:absolute;bottom:15px;left:18px;right:18px;
-  padding:12px;background:#ffffff20;
-  border:1px solid #ffffff20;border-radius:24px;
-  display:flex;justify-content:space-around;
+  position:absolute;
+  bottom:15px;
+  left:18px;
+  right:18px;
+  padding:14px 12px;
+  background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.28);
+  border-radius:28px;
+  display:flex;
+  justify-content:space-around;
+  backdrop-filter:blur(25px) saturate(160%);
+  -webkit-backdrop-filter:blur(25px) saturate(160%);
+  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+}
+
 .home-indicator{
-  position:absolute;bottom:5px;left:40%;width:20%;
-  height:4px;border-radius:5px;background:white;
+  position:absolute;
+  bottom:5px;
+  left:40%;
+  width:20%;
+  height:4px;
+  border-radius:5px;
+  background:white;
 }
 .page{
   display:none;position:absolute;inset:42px 0 0;
