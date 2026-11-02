@@ -496,6 +496,7 @@ setInterval(updateLockTime,1000);
 
 function unlockPhone(){
   document.getElementById('lock-screen').style.display='none';
+  showXiaojunPopup();
 }
 let startY=0;
 document.getElementById('lock-screen').addEventListener('touchstart',e=>{
