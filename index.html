@@ -9,15 +9,23 @@
 *{box-sizing:border-box}
 body{
   margin:0;background:#000;color:white;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:-0.2px;
   display:flex;justify-content:center;align-items:center;
   min-height:100vh;
 }
 .phone{
   width:350px;height:720px;max-height:94vh;
-  border:7px solid #28232a;border-radius:43px;
-  overflow:hidden;position:relative;background:#100d14;
-  box-shadow:0 0 45px #e75caa33;
+  border:7px solid #28232a;
+  border-radius:43px;
+  overflow:hidden;
+  position:relative;
+  background:
+    radial-gradient(ellipse at 20% 20%, #49365f 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 75%, #263b5b 0%, transparent 50%),
+    linear-gradient(145deg,#171522,#080a12);
+  box-shadow:0 0 45px #a58bff33;
 }
 .status{
   height:42px;padding:13px 24px 0;
@@ -31,10 +39,22 @@ body{
 }
 .app{text-align:center;cursor:pointer;font-size:11px;color:white}
 .icon{
-  width:57px;height:57px;border-radius:17px;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 7px;overflow:hidden;
-  box-shadow:0 3px 8px #0008;
+  width:57px;
+  height:57px;
+  border-radius:19px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 7px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.3);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.25),
+    inset 0 1px 1px rgba(255,255,255,0.25);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
 }
 .icon img{width:100%;height:100%;object-fit:contain}
 .dock{
@@ -42,7 +62,6 @@ body{
   padding:12px;background:#ffffff20;
   border:1px solid #ffffff20;border-radius:24px;
   display:flex;justify-content:space-around;
-}
 .home-indicator{
   position:absolute;bottom:5px;left:40%;width:20%;
   height:4px;border-radius:5px;background:white;
