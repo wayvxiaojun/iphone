@@ -102,12 +102,73 @@ body{
 }
 .item small{color:#eab0d1}
 .photo-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:10px;margin:20px 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+ margin:15px -10px 90px;
+}
+.photos-topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 0;
+}
+  #photos{
+  background:#000;
+  color:white;
+}
+
+.photos-topbar h2{
+  font-size:28px;
+  font-weight:700;
+  margin:0;
+}
+
+.photos-subtitle{
+  font-size:14px;
+  color:#aaa;
+  margin:0 0 15px;
+}
+  .photos-tabbar{
+  position:absolute;
+  bottom:12px;
+  left:15px;
+  right:15px;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 5px;
+  background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:22px;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.photos-tabbar button{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  font-size:20px;
+}
+
+.photos-tabbar button span{
+  font-size:10px;
+}
+
+.photos-tabbar button.active{
+  color:white;
 }
 .photo-grid img{
-  width:100%;height:150px;object-fit:cover;
-  border-radius:12px;cursor:pointer;
+  width:100%;
+  aspect-ratio:1 / 1;
+  height:auto;
+  object-fit:cover;
+  border-radius:3px;
+  cursor:pointer;
 }
 #photo-viewer{
   display:none;position:fixed;inset:0;
@@ -385,10 +446,11 @@ textarea{height:100px}
     </div>
   </div>
 
-  <div id="photos" class="page">
-    <button class="back" onclick="goHome()">← HOME</button>
-    <h2>♡ XIAOJUN'S PHOTO ALBUM</h2>
-    <p>记录肖俊的每一秒</p>
+  <div class="photos-topbar">
+  <button class="back" onclick="goHome()">‹</button>
+  <h2>ライブラリ</h2>
+</div>
+<p class="photos-subtitle">すべての写真</p>
     <div class="photo-grid">
       <img src="01C1C5BA-C3BF-4BAB-8122-97A08FD72C8A.jpeg" onclick="showPhoto(this)">
       <img src="485151205277078eece2ffeac450bfbbced3bffd.jpeg" onclick="showPhoto(this)">
@@ -399,6 +461,11 @@ textarea{height:100px}
       <img src="a4262ba6f041af2be916356f2a76da70612793ec.jpeg" onclick="showPhoto(this)">
       <img src="d547ffef7d430c73e38d782e2cab92e8d1856216.jpeg" onclick="showPhoto(this)">
     </div>
+  <div class="photos-tabbar">
+  <button class="active">▦<span>ライブラリ</span></button>
+  <button>▧<span>コレクション</span></button>
+  <button>⌕<span>検索</span></button>
+</div>
   </div>
 
   <div id="music" class="page">
