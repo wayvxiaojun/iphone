@@ -510,7 +510,6 @@ function saveMemo(){
   localStorage.setItem('xiaojunMemo',document.getElementById('memo').value);
   document.getElementById('saved').textContent='Saved ♡';
 }
-document.getElementById('memo').value=localStorage.getItem('xiaojunMemo')||'';
 
   function requestNotificationPermission() {
   if (!("Notification" in window)) {
