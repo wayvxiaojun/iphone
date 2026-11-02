@@ -372,6 +372,11 @@ textarea{height:100px}
       </div>
     </div>
 
+    <button onclick="requestNotificationPermission()" 
+  style="margin:12px; padding:10px 16px; background:#222; color:#fff; border:1px solid #555; border-radius:8px;">
+  ENABLE NOTIFICATIONS
+</button>
+    
     <div id="chat-messages" class="chat-messages">
       <div class="message received">
         <div class="bubble">오늘 뭐했어?</div><small>肖俊</small>
@@ -507,6 +512,24 @@ function saveMemo(){
 }
 document.getElementById('memo').value=localStorage.getItem('xiaojunMemo')||'';
 
+  function requestNotificationPermission() {
+  if (!("Notification" in window)) {
+    alert("このブラウザは通知に対応していません。");
+    return;
+  }
+
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      alert("通知をONにしました！");
+      new Notification("肖俊", {
+        body: "吃饭了吗"
+      });
+    } else {
+      alert("通知が許可されませんでした。");
+    }
+  });
+}
+  
 function sendMessage(){
   const input = document.getElementById('chat-input-text');
   const message = input.value.trim();
