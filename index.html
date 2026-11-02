@@ -372,10 +372,7 @@ textarea{height:100px}
       </div>
     </div>
 
-    <button onclick="requestNotificationPermission()" 
-  style="margin:12px; padding:10px 16px; background:#222; color:#fff; border:1px solid #555; border-radius:8px;">
-  ENABLE NOTIFICATIONS
-</button>
+    
     
     <div id="chat-messages" class="chat-messages">
       <div class="message received">
@@ -401,6 +398,24 @@ textarea{height:100px}
     </div>
   </div>
 
+  <div id="xiaojun-popup" style="
+  display:none;
+  position:absolute;
+  top:55px;
+  left:12px;
+  right:12px;
+  z-index:9999;
+  padding:15px;
+  background:rgba(35,35,35,0.96);
+  border:1px solid #555;
+  border-radius:16px;
+  box-shadow:0 5px 20px #0008;
+">
+  <small style="color:#aaa;">MESSAGE · NOW</small>
+  <div style="font-weight:bold; margin:7px 0;">肖俊</div>
+  <div id="xiaojun-popup-message" style="font-size:14px;"></div>
+</div>
+  
   <div id="phone" class="page">
     <button class="back" onclick="goHome()">← HOME</button>
     <h2>☎ PHONE</h2>
@@ -511,23 +526,33 @@ function saveMemo(){
   document.getElementById('saved').textContent='Saved ♡';
 }
 
-  function requestNotificationPermission() {
-  if (!("Notification" in window)) {
-    alert("このブラウザは通知に対応していません。");
-    return;
-  }
+  const xiaojunMessages = [
+  "오늘 뭐 해?",
+  "밥 먹었어?",
+  "오늘도 수고했어.",
+  "보고 싶네.",
+  "너 생각하고 있었어.",
+  "오늘은 일찍 자.",
+  "무리하지 마.",
+  "잘 자, 좋은 꿈 꿔."
+];
 
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      alert("通知をONにしました！");
-      new Notification("肖俊", {
-        body: "吃饭了吗"
-      });
-    } else {
-      alert("通知が許可されませんでした。");
-    }
-  });
+function showXiaojunPopup() {
+  const popup = document.getElementById("xiaojun-popup");
+  const message = document.getElementById("xiaojun-popup-message");
+
+  const randomMessage =
+    xiaojunMessages[Math.floor(Math.random() * xiaojunMessages.length)];
+
+  message.textContent = randomMessage;
+  popup.style.display = "block";
+
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 5000);
 }
+
+setInterval(showXiaojunPopup, 60000);
   
 function sendMessage(){
   const input = document.getElementById('chat-input-text');
